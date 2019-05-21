@@ -7,6 +7,7 @@ import com.pluhin.infra.service.manager.service.start.StartService
 import com.pluhin.infra.service.manager.service.status.StatusService
 import com.pluhin.infra.service.manager.service.stop.StopService
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Flux
@@ -23,5 +24,10 @@ class ServiceManagerController(
     @GetMapping("/all")
     fun getAll(): Flux<Service> {
         return statusService.getStatuses();
+    }
+
+    @PostMapping("/start/{serviceName}")
+    fun start(@PathVariable serviceName: String) {
+        startService.start(serviceName)
     }
 }

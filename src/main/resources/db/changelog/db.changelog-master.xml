@@ -8,7 +8,7 @@
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
     <changeSet author="pluhin" id="1.0.0">
-        <addColumn tableName="users">
+        <createTable tableName="users">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
@@ -18,7 +18,39 @@
             <column name="password" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-        </addColumn>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.1" author="pluhin">
+        <comment>Add services table</comment>
+        <createTable tableName="services">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="filename" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.2" author="pluhin">
+        <comment>Add service history table</comment>
+        <createTable tableName="history">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="service_id" type="bigint">
+                <constraints nullable="false" referencedTableName="services" referencedColumnNames="id"
+                             foreignKeyName="fk_service_id"/>
+            </column>
+            <column name="created_at" type="datetime" defaultValue="NOW()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="destroyed_at" type="datetime"/>
+        </createTable>
     </changeSet>
 
 </databaseChangeLog>
