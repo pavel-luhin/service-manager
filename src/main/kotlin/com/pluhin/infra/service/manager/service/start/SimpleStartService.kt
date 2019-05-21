@@ -1,12 +1,10 @@
 package com.pluhin.infra.service.manager.service.start
 
-import com.pluhin.infra.service.manager.entity.HistoryEntity
-import com.pluhin.infra.service.manager.repository.HistoryRepository
 import com.pluhin.infra.service.manager.repository.ComponentRepository
+import com.pluhin.infra.service.manager.repository.HistoryRepository
 import org.springframework.stereotype.Service
-import reactor.core.publisher.Mono
-import java.time.LocalDateTime
-
+import java.io.InputStream
+import java.nio.charset.Charset
 
 @Service
 class SimpleStartService(
@@ -15,9 +13,19 @@ class SimpleStartService(
 ) : StartService {
 
     override fun start(serviceName: String) {
-        Mono.just(serviceName)
-            .map { componentRepository.findByName(serviceName) }
-            .map { HistoryEntity(0, it, LocalDateTime.now(), null) }
-            .doOnNext { historyRepository.save(it) }
+        runProcess(serviceName)
+    }
+
+    @Throws(Exception::class)
+    private fun printLines(cmd: String, ins: InputStream) {
+        val text = ins.readBytes().toString(Charset.defaultCharset());
+        println("$cmd $text")
+    }
+
+    @Throws(Exception::class)
+    private fun runProcess(command: String) {
+        val pro = Runtime.getRuntime().exec(command)
+        printLines("$command stdout:", pro.inputStream)
+        printLines("$command stderr:", pro.errorStream)
     }
 }
