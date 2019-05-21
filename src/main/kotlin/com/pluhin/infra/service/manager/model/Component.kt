@@ -1,6 +1,6 @@
 package com.pluhin.infra.service.manager.model
 
-data class Service(
+data class Component(
     val pid: Long,
     val status: ServiceStatus,
     val uptime: Long,

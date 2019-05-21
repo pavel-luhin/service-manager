@@ -53,4 +53,14 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="1.0.3" author="pluhin">
+        <comment>rename column service_id to component_id</comment>
+        <renameColumn tableName="history" oldColumnName="service_id" newColumnName="component_id" columnDataType="bigint"/>
+    </changeSet>
+
+    <changeSet id="1.0.4" author="pluhin">
+        <comment>rename table services to components</comment>
+        <renameTable oldTableName="services" newTableName="components"/>
+    </changeSet>
+
 </databaseChangeLog>

@@ -1,9 +1,8 @@
 package com.pluhin.infra.service.manager.service.status
 
-import com.pluhin.infra.service.manager.model.Service
-import reactor.core.publisher.Flux
+import com.pluhin.infra.service.manager.model.Component
 
 interface StatusService {
 
-    fun getStatuses(): List<Service>
+    fun getStatuses(): List<Component>
 }

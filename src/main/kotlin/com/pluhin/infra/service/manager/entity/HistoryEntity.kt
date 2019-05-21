@@ -4,12 +4,12 @@ import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
-data class History(
+data class HistoryEntity(
     @Id
     @GeneratedValue
     val id: Long,
     @OneToOne
-    val service: Service,
+    val component: ComponentEntity,
     val createdAt: LocalDateTime,
     val destroyedAt: LocalDateTime?
 )
