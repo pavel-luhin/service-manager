@@ -5,5 +5,5 @@ import reactor.core.publisher.Flux
 
 interface StatusService {
 
-    fun getStatuses(): Flux<Service>
+    fun getStatuses(): List<Service>
 }
